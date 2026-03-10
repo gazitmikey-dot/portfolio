@@ -487,6 +487,12 @@ body {
   color: #000;
 }
 
+/* Zoom cursor on lightbox images */
+.glightbox img {
+  cursor: zoom-in;
+}
+
+
 /* More Works section */
 .cs-more-works {
   padding-top: 64px;

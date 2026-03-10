@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 </head>
 <body>
 
@@ -63,7 +64,7 @@
 
     <!-- DARK THEME — full-width image -->
     <div class="cs-full-img">
-      <img src="images/solar-dark.svg" alt="Solar Analytic App — dark theme" />
+      <a href="images/solar-dark.svg" class="glightbox"><img src="images/solar-dark.svg" alt="Solar Analytic App — dark theme" /></a>
     </div>
 
 
@@ -92,7 +93,7 @@
       </div>
     </section>
     <div class="cs-full-img">
-      <img src="images/solar-fleet.svg" alt="Solar — Fleet Management" />
+      <a href="images/solar-fleet.svg" class="glightbox"><img src="images/solar-fleet.svg" alt="Solar — Fleet Management" /></a>
     </div>
 
 
@@ -108,7 +109,7 @@
       </div>
     </section>
     <div class="cs-full-img">
-      <img src="images/solar-analytics.svg" alt="Solar — Analytics & Reporting" />
+      <a href="images/solar-analytics.svg" class="glightbox"><img src="images/solar-analytics.svg" alt="Solar — Analytics & Reporting" /></a>
     </div>
 
 
@@ -124,7 +125,7 @@
       </div>
     </section>
     <div class="cs-full-img">
-      <img src="images/solar-features.svg" alt="Solar — System Features" />
+      <a href="images/solar-features.svg" class="glightbox"><img src="images/solar-features.svg" alt="Solar — System Features" /></a>
     </div>
 
 
@@ -227,6 +228,11 @@
         alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
       }
     });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    GLightbox({ selector: '.glightbox' });
   </script>
 
 </body>

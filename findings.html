@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 </head>
 <body>
 
@@ -172,13 +173,13 @@
     </section>
     <!-- 2 images side by side: Vendor Management (left) | Audit AI (right) -->
     <div class="cs-full-img-pair">
-      <img src="images/desingsystem-vendormanagement.svg" alt="Findings design system — Vendor Management" />
-      <img src="images/designsystem-audit-ai.svg" alt="Findings design system — Audit AI" />
+      <a href="images/desingsystem-vendormanagement.svg" class="glightbox"><img src="images/desingsystem-vendormanagement.svg" alt="Findings design system — Vendor Management" /></a>
+      <a href="images/designsystem-audit-ai.svg" class="glightbox"><img src="images/designsystem-audit-ai.svg" alt="Findings design system — Audit AI" /></a>
     </div>
 
     <!-- 1 full-width image: component library -->
     <div class="cs-full-img">
-      <img src="images/design-system-parts.svg" alt="Findings design system — components" />
+      <a href="images/design-system-parts.svg" class="glightbox"><img src="images/design-system-parts.svg" alt="Findings design system — components" /></a>
     </div>
 
 
@@ -200,7 +201,7 @@
     </section>
     <!-- Full-width dashboard image -->
     <div class="cs-full-img">
-      <img src="images/dashboard.svg" alt="Findings Platform — Enterprise Dashboard" />
+      <a href="images/dashboard.svg" class="glightbox"><img src="images/dashboard.svg" alt="Findings Platform — Enterprise Dashboard" /></a>
     </div>
 
     <!-- ===================== -->
@@ -219,8 +220,8 @@
     </section>
     <!-- Two images side by side: vendor table (left) | vendor card (right) -->
     <div class="cs-full-img-pair">
-      <img src="images/vendortable.svg" alt="Findings Platform — Vendor Table" />
-      <img src="images/vendorcard.svg" alt="Findings Platform — Vendor Card" />
+      <a href="images/vendortable.svg" class="glightbox"><img src="images/vendortable.svg" alt="Findings Platform — Vendor Table" /></a>
+      <a href="images/vendorcard.svg" class="glightbox"><img src="images/vendorcard.svg" alt="Findings Platform — Vendor Card" /></a>
     </div>
 
 
@@ -241,13 +242,13 @@
     </section>
     <!-- Main questionnaire image — full width -->
     <div class="cs-full-img">
-      <img src="images/assessment-questionnaire.svg" alt="Assessment Questionnaire" />
+      <a href="images/assessment-questionnaire.svg" class="glightbox"><img src="images/assessment-questionnaire.svg" alt="Assessment Questionnaire" /></a>
     </div>
 
     <!-- Share + Automation — pair below -->
     <div class="cs-full-img-pair">
-      <img src="images/assessment-share.svg" alt="Assessment Share" />
-      <img src="images/assessment-automation.svg" alt="Assessment Response Automation" />
+      <a href="images/assessment-share.svg" class="glightbox"><img src="images/assessment-share.svg" alt="Assessment Share" /></a>
+      <a href="images/assessment-automation.svg" class="glightbox"><img src="images/assessment-automation.svg" alt="Assessment Response Automation" /></a>
     </div>
 
 
@@ -265,13 +266,13 @@
     </section>
     <!-- Assessment Editor — main image full width -->
     <div class="cs-full-img">
-      <img src="images/editor-main.svg" alt="Assessment Editor — main view" />
+      <a href="images/editor-main.svg" class="glightbox"><img src="images/editor-main.svg" alt="Assessment Editor — main view" /></a>
     </div>
 
     <!-- Assessment Editor — follow-up and app trigger side by side -->
     <div class="cs-full-img-pair">
-      <img src="images/editor-follow-up.svg" alt="Assessment Editor — follow-up subtasks" />
-      <img src="images/editor-app-trigger.svg" alt="Assessment Editor — app trigger" />
+      <a href="images/editor-follow-up.svg" class="glightbox"><img src="images/editor-follow-up.svg" alt="Assessment Editor — follow-up subtasks" /></a>
+      <a href="images/editor-app-trigger.svg" class="glightbox"><img src="images/editor-app-trigger.svg" alt="Assessment Editor — app trigger" /></a>
     </div>
 
 
@@ -414,6 +415,11 @@
       }
     });
 
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    GLightbox({ selector: '.glightbox' });
   </script>
 
 </body>
