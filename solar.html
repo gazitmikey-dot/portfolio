@@ -15,11 +15,18 @@
   <nav class="navbar">
     <a href="index.html" class="nav-logo">Michal Gazit</a>
     <div class="nav-links">
-      <a href="index.html">Projects</a>
-      <a href="about.html">About</a>
+      <a href="index.html" class="nav-page-link">Projects</a>
+      <a href="about.html" class="nav-page-link">About</a>
       <button class="hire-btn" onclick="openModal()">Reach out</button>
+      <button class="nav-hamburger" id="navHamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="index.html">Projects</a>
+    <a href="about.html">About</a>
+  </div>
 
   <main class="cs-container">
 
@@ -181,6 +188,17 @@
   </div>
 
   <script>
+    function toggleMenu() {
+      document.getElementById('navDropdown').classList.toggle('active');
+    }
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('navDropdown');
+      const hamburger = document.getElementById('navHamburger');
+      if (dropdown && !dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
     function openModal() {
       document.getElementById('modalOverlay').classList.add('active');
       document.body.style.overflow = 'hidden';

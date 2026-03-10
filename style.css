@@ -596,6 +596,52 @@ body {
   }
 }
 
+/* Hamburger button — hidden on desktop, shown on mobile */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: #000;
+  border-radius: 2px;
+}
+
+/* Mobile dropdown menu — hidden by default */
+.nav-dropdown {
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  border-bottom: 1px solid #EBEBEB;
+  padding: 0 24px;
+}
+
+.nav-dropdown.active {
+  display: flex;
+}
+
+.nav-dropdown a {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  padding: 18px 0;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.nav-dropdown a:last-child {
+  border-bottom: none;
+}
+
+
 /* ============================================================
    RESPONSIVE — CASE STUDY MOBILE (max 500px)
    ============================================================ */
@@ -604,7 +650,20 @@ body {
     padding: 16px 24px;
   }
   .nav-links {
-    gap: 16px;
+    gap: 12px;
+  }
+  /* Hide Projects & About from the main navbar on mobile */
+  .nav-page-link {
+    display: none;
+  }
+  /* Show hamburger on mobile */
+  .nav-hamburger {
+    display: flex;
+  }
+  /* Smaller Reach out button on mobile */
+  .hire-btn {
+    font-size: 14px;
+    padding: 8px 14px;
   }
   .cs-container {
     padding: 40px 24px;
