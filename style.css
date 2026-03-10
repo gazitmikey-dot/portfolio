@@ -152,16 +152,9 @@ body {
    fills the full screen width with just 64px breathing room
    ============================================================ */
 @media (min-width: 1440px) {
-  .container {
-    max-width: 100%;
-    padding: 64px 64px;
-  }
   .cs-container {
     max-width: 100%;
     padding: 64px 64px;
-  }
-  .navbar {
-    padding: 24px 64px;
   }
 }
 
