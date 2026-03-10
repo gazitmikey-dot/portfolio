@@ -1,0 +1,867 @@
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+/* ============================================================
+   HOW THIS FILE IS ORGANIZED:
+   1. Reset & Base
+   2. Home Page
+   3. Nav Bar
+   4. Case Study Page
+   5. Reach Out Modal
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ============================================================
+   2. HOME PAGE
+   ============================================================ */
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 64px 128px;
+}
+
+.name {
+  font-size: 87px;           /* scaled from 77px */
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 48px;
+  line-height: 1.05;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.project-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.project-card a:hover .project-image {
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.findings-bg {
+  background-color: #7B6CF6;
+}
+
+.solar-bg {
+  background-color: #EDEDED;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-name {
+  font-size: 18px;           /* scaled from 16px */
+  font-weight: 600;
+}
+
+.project-year {
+  font-size: 18px;           /* scaled from 16px */
+  font-weight: 400;
+  color: #888888;
+}
+
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.philosophy h2,
+.reach-out h2 {
+  font-size: 19px;           /* scaled from 17px */
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.philosophy p {
+  font-size: 17px;           /* scaled from 15px */
+  line-height: 1.75;
+  color: #333333;
+  max-width: 380px;
+}
+
+.reach-out ul {
+  list-style: none;
+}
+
+.reach-out ul li {
+  font-size: 17px;           /* scaled from 15px */
+  margin-bottom: 8px;
+  color: #333333;
+}
+
+.reach-out ul li a {
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.reach-out ul li a:hover {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+
+/* ============================================================
+   RESPONSIVE — LARGE SCREENS (min 1600px)
+   Removes the max-width cap and reduces padding so content
+   fills the full screen width with just 64px breathing room
+   ============================================================ */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 100%;
+    padding: 64px 64px;
+  }
+  .cs-container {
+    max-width: 100%;
+    padding: 64px 64px;
+  }
+  .navbar {
+    padding: 24px 64px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — HOME TABLET (max 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .container {
+    padding: 48px 40px;
+  }
+  .name {
+    font-size: 63px;           /* scaled from 56px */
+    letter-spacing: -1.5px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — HOME MOBILE (max 500px)
+   ============================================================ */
+@media (max-width: 500px) {
+  .container {
+    padding: 40px 24px;
+  }
+  .name {
+    font-size: 48px;           /* scaled from 43px */
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+  }
+  .projects {
+    grid-template-columns: 1fr;
+    margin-bottom: 56px;
+  }
+  .bottom-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+
+/* ============================================================
+   3. NAV BAR
+   ============================================================ */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 128px;          /* matches container side padding */
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.nav-logo {
+  font-size: 17px;           /* scaled from 15px */
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-size: 17px;           /* scaled from 15px */
+  color: #000;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.hire-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;           /* scaled from 15px */
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #000000;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.hire-btn:hover {
+  opacity: 0.75;
+}
+
+
+/* ============================================================
+   4. CASE STUDY PAGE
+   ============================================================ */
+
+.cs-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 64px 128px;
+}
+
+.cs-hero {
+  margin-bottom: 24px;
+}
+
+/* Overall project explanation — sits between title and metadata */
+.cs-intro {
+  font-size: 18px;
+  line-height: 1.75;
+  color: #333333;
+  margin-bottom: 48px;
+}
+
+.cs-title {
+  font-size: 96px;           /* 77px × 1.25 */
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.05;
+}
+
+.cs-hero-image {
+  width: 100%;
+  margin-bottom: 56px;
+}
+
+/* The actual image — fills full width, height adjusts naturally to the image proportions */
+.cs-hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;             /* removes small gap below image */
+}
+
+.cs-meta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid #EBEBEB;
+  padding-top: 32px;
+  margin-bottom: 72px;
+}
+
+.cs-meta-col {
+  padding: 0 32px;
+  border-left: 1px solid #EBEBEB;
+}
+
+.cs-meta-col:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.meta-label {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+.cs-meta-col p {
+  font-size: 17px;           /* scaled from 15px */
+  color: #333333;
+  line-height: 1.8;
+}
+
+.cs-section {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  margin-bottom: 64px;
+  padding-top: 40px;
+  border-top: 1px solid #EBEBEB;
+}
+
+.cs-label {
+  padding-top: 4px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 15px;           /* scaled from 13px */
+  font-weight: 700;
+  color: #222222;
+  background-color: #F2F2F2;
+  border-radius: 999px;
+  padding: 6px 14px;
+  white-space: nowrap;
+}
+
+/* Larger text for the intro/role section only */
+.cs-section--intro .cs-content p {
+  font-size: 20px;           /* scaled from 18px */
+}
+
+.cs-content p {
+  font-size: 18px;           /* scaled from 16px — this is the new body size */
+  line-height: 1.75;
+  color: #333333;
+  margin-bottom: 24px;
+}
+
+.user-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.user-group-card {
+  background-color: #F7F7F7;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.user-group-card h4 {
+  font-size: 17px;           /* scaled from 15px */
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.user-group-card ul {
+  list-style: disc;
+  padding-left: 18px;
+}
+
+.user-group-card ul li {
+  font-size: 17px;           /* scaled from 15px */
+  line-height: 1.7;
+  color: #333333;
+  margin-bottom: 12px;
+}
+
+.solutions-list {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.solutions-list li {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.check {
+  font-size: 18px;           /* scaled from 16px */
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.solutions-list li strong {
+  font-size: 18px;           /* scaled from 16px */
+  display: block;
+  margin-bottom: 6px;
+}
+
+.solutions-list li p {
+  font-size: 17px;           /* scaled from 15px */
+  line-height: 1.7;
+  color: #555555;
+  margin: 0;
+}
+
+/* Full-width image containers */
+.cs-full-img {
+  margin-bottom: 64px;
+}
+
+.cs-full-img-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+/* Three images side by side */
+.cs-full-img-trio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+/* Four images side by side */
+.cs-full-img-quad {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+
+.cs-full-img-quad img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.cs-img-placeholder {
+  width: 100%;
+  height: 480px;
+  background-color: #F2F2F2;
+  border-radius: 12px;
+}
+
+.cs-full-img img,
+.cs-full-img-pair img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.cs-result {
+  background-color: #F7F7F7;
+  border-radius: 10px;
+  padding: 20px 24px;
+  font-size: 17px;           /* scaled from 15px */
+  line-height: 1.7;
+  color: #333333;
+}
+
+.cs-result strong {
+  color: #000;
+}
+
+/* More Works section */
+.cs-more-works {
+  padding-top: 64px;
+  border-top: 1px solid #EBEBEB;
+  margin-top: 32px;
+  margin-bottom: 80px;
+}
+
+/* Header: title left-aligned */
+.cs-more-works-header {
+  margin-bottom: 48px;
+}
+
+.cs-more-works-title {
+  font-size: 58px;        /* 72px × 0.8 */
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.05;
+}
+
+/* Each project row */
+.cs-more-works-item {
+  display: flex;
+  align-items: center;
+  padding: 32px 0;
+  border-top: 1px solid #EBEBEB;
+  border-bottom: 1px solid #EBEBEB;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+}
+
+.cs-more-works-item:hover {
+  opacity: 0.6;
+}
+
+.cs-more-works-num {
+  font-size: 22px;        /* 28px × 0.8 */
+  font-weight: 700;
+  color: #CCCCCC;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.cs-more-works-name {
+  font-size: 29px;        /* 36px × 0.8 */
+  font-weight: 600;
+  color: #888888;
+  flex: 1;
+}
+
+.cs-more-works-link {
+  font-size: 14px;        /* 17px × 0.8 */
+  font-weight: 600;
+  color: #000000;
+}
+
+
+/* Conclusion section — larger text, same as intro */
+.cs-section--conclusion .cs-content p {
+  font-size: 20px;           /* same as intro section */
+  line-height: 1.8;
+  color: #333333;
+}
+
+
+/* ============================================================
+   RESPONSIVE — CASE STUDY TABLET (max 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 20px 40px;
+  }
+  .cs-container {
+    padding: 48px 48px;
+  }
+  .cs-title {
+    font-size: 57px;           /* scaled from 51px */
+  }
+  .cs-hero-image {
+    height: 320px;
+  }
+  .cs-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .cs-meta-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .cs-meta-col {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid #EBEBEB;
+    padding-top: 24px;
+  }
+  .cs-meta-col:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — CASE STUDY MOBILE (max 500px)
+   ============================================================ */
+@media (max-width: 500px) {
+  .navbar {
+    padding: 16px 24px;
+  }
+  .nav-links {
+    gap: 16px;
+  }
+  .cs-container {
+    padding: 40px 24px;
+  }
+  .cs-title {
+    font-size: 43px;           /* scaled from 38px */
+  }
+  .cs-hero-image {
+    height: 220px;
+  }
+  .user-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   6. ABOUT PAGE
+   ============================================================ */
+
+/* Grey card that wraps the bio section */
+.about-card {
+  background-color: #F8FCF4;
+  border-radius: 16px;
+  padding: 48px 56px;
+  margin-bottom: 64px;
+}
+
+.about-title {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 40px;
+}
+
+/* Two columns: photo on left, text on right */
+.about-grid {
+  display: grid;
+  grid-template-columns: 286px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Photo container — portrait shape */
+.about-photo {
+  width: 286px;
+}
+
+.about-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+/* Placeholder shown until a real photo is added */
+.about-photo-placeholder {
+  width: 286px;
+  height: 377px;
+  background-color: #DCDCDC;
+  border-radius: 12px;
+}
+
+.about-text p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #333333;
+  margin-bottom: 18px;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Experience & Education sections */
+.cv-section {
+  margin-bottom: 48px;
+}
+
+/* Line above the list, then each item has a line below */
+.cv-list {
+  margin-top: 24px;
+  border-top: 1px solid #EBEBEB;
+}
+
+.cv-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.cv-item-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.cv-item-subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #555555;
+}
+
+.cv-item-date {
+  font-size: 16px;
+  font-weight: 400;
+  color: #888888;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* Responsive — tablet */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 32px;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-photo,
+  .about-photo-placeholder {
+    width: 160px;
+    height: 210px;
+  }
+}
+
+/* Responsive — mobile */
+@media (max-width: 500px) {
+  .about-title {
+    font-size: 40px;
+  }
+}
+
+
+/* ============================================================
+   5. REACH OUT MODAL
+   ============================================================ */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-title {
+  font-size: 29px;           /* scaled from 26px */
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  font-size: 17px;           /* scaled from 15px */
+  color: #666;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 16px;           /* scaled from 14px */
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #000;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;           /* scaled from 15px */
+  color: #000;
+  background-color: #F7F7F7;
+  border: 1px solid #E8E8E8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #000;
+  background-color: #fff;
+}
+
+.form-submit {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;           /* scaled from 16px */
+  font-weight: 600;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 999px;
+  padding: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.form-submit:hover {
+  opacity: 0.75;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.form-success p {
+  font-size: 18px;           /* scaled from 16px */
+  color: #333;
+  line-height: 1.7;
+}

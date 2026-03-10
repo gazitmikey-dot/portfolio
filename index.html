@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- This makes the site look correct on phones, not zoomed out -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michal Gazit — Product Designer</title>
+
+  <!-- Google Fonts: Inter is a clean, modern sans-serif — great for UI portfolios -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Link to our stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV BAR (same as case study pages) -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Michal Gazit</a>
+    <div class="nav-links">
+      <a href="index.html">Projects</a>
+      <a href="about.html">About</a>
+      <button class="hire-btn" onclick="openModal()">Reach out</button>
+    </div>
+  </nav>
+
+  <!-- MAIN WRAPPER: keeps content centered with padding on the sides -->
+  <main class="container">
+
+    <!-- ===================== -->
+    <!-- HERO: Your name, large -->
+    <!-- ===================== -->
+    <h1 class="name">Michal Gazit</h1>
+
+    <!-- ===================== -->
+    <!-- PROJECT GRID           -->
+    <!-- ===================== -->
+    <section class="projects">
+
+      <!-- Project Card 1: Findings Platform -->
+      <article class="project-card">
+        <!-- Clicking the card will go to the case study page (we'll build that next) -->
+        <a href="findings.html">
+          <!-- The colored box that holds the project screenshot -->
+          <div class="project-image findings-bg">
+            <img src="images/findings-cover.svg" alt="Findings Platform preview" />
+          </div>
+          <!-- Name + Year row below the image -->
+          <div class="project-meta">
+            <span class="project-name">Findings Platform</span>
+            <span class="project-year">2025</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Project Card 2: Solar Analytics App -->
+      <article class="project-card">
+        <a href="solar.html">
+          <!-- Different background color for this project -->
+          <div class="project-image solar-bg">
+            <img src="images/solar-cover.svg" alt="Solar Analytics App preview" />
+          </div>
+          <div class="project-meta">
+            <span class="project-name">Solar Analytics App</span>
+            <span class="project-year">2022</span>
+          </div>
+        </a>
+      </article>
+
+    </section>
+    <!-- end .projects -->
+
+
+    <!-- ========================== -->
+    <!-- BOTTOM: Philosophy + Links -->
+    <!-- ========================== -->
+    <section class="bottom-section">
+
+      <!-- Left column: design philosophy text -->
+      <div class="philosophy">
+        <h2>My design philosophy</h2>
+        <p>
+          Design, to me, is the pursuit of harmony — where
+          function, form, and feeling come together. I'm always
+          searching for that moment when everything just clicks.
+        </p>
+      </div>
+
+      <!-- Right column: contact links -->
+      <div class="reach-out">
+        <h2>Reach out</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li>
+            Email <a href="#" onclick="openModal(); return false;">gazit.mikey@gmail.com</a>
+          </li>
+          <li><a href="https://www.linkedin.com/in/michal-gazit-shprung-039a4473/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+
+    </section>
+    <!-- end .bottom-section -->
+
+  </main>
+  <!-- end .container -->
+
+
+  <!-- REACH OUT MODAL (same as findings.html) -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2 class="modal-title">Reach out</h2>
+      <p class="modal-subtitle">I'd love to hear from you. I'll get back to you as soon as possible.</p>
+      <form id="contactForm" action="https://formspree.io/f/xkoqwznd" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <p>Thanks for reaching out! I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+      }
+    });
+  </script>
+
+</body>
+</html>

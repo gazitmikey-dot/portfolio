@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Analytic App — Michal Gazit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Michal Gazit</a>
+    <div class="nav-links">
+      <a href="index.html">Projects</a>
+      <a href="about.html">About</a>
+      <button class="hire-btn" onclick="openModal()">Reach out</button>
+    </div>
+  </nav>
+
+  <main class="cs-container">
+
+    <!-- TITLE -->
+    <section class="cs-hero">
+      <h1 class="cs-title">Solar Analytic<br>App</h1>
+    </section>
+
+    <!-- OVERALL EXPLANATION -->
+    <p class="cs-intro">Solar provides high-accuracy, serverless analytics for monitoring and optimizing solar PV performance. Their technology enables energy platforms and operators to assess system health, automate maintenance, and reduce costs — without the need for expensive weather sensors. Backed by the Israel Innovation Authority, Solnet supports smarter, decentralized energy management across solar, storage, and EV systems.</p>
+
+    <!-- METADATA ROW -->
+    <div class="cs-meta-row">
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Category</h3>
+        <p>Product design</p>
+        <p>UI&amp;UX</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Client</h3>
+        <p>Solar</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Tools</h3>
+        <p><strong>Figma</strong> for Design &amp; prototyping</p>
+      </div>
+    </div>
+
+    <!-- HERO IMAGE — light theme screenshots -->
+    <div class="cs-hero-image">
+      <img src="images/solar-hero.svg" alt="Solar Analytic App — light theme" />
+    </div>
+
+
+    <!-- DARK THEME — full-width image -->
+    <div class="cs-full-img">
+      <img src="images/solar-dark.svg" alt="Solar Analytic App — dark theme" />
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- MY ROLE & CONTRIBUTIONS -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--intro">
+      <div class="cs-label">
+        <span class="section-tag">My Role &amp; Contributions</span>
+      </div>
+      <div class="cs-content">
+        <p>This project was created as part of a studio, where I led the product design and was responsible for the project end-to-end. A key challenge was designing a fleet management experience that supports a large number of systems, each with multiple data points, while maintaining clarity, hierarchy, and usability at scale.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- FLEET MANAGEMENT       -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Fleet Management</span>
+      </div>
+      <div class="cs-content">
+        <p>Designed a scalable fleet management view that adapts to the number of systems — from small residential setups to large commercial installations. Each tier presents the right level of detail and hierarchy without overwhelming the user.</p>
+      </div>
+    </section>
+    <div class="cs-full-img">
+      <img src="images/solar-fleet.svg" alt="Solar — Fleet Management" />
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- ANALYTICS & REPORTING  -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Analytics &amp; Reporting</span>
+      </div>
+      <div class="cs-content">
+        <p>Built a comprehensive analytics layer that lets operators track performance across multiple time horizons — monthly, yearly, and total lifetime — with detailed breakdowns per system, enabling fast identification of underperforming units.</p>
+      </div>
+    </section>
+    <div class="cs-full-img">
+      <img src="images/solar-analytics.svg" alt="Solar — Analytics & Reporting" />
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- SYSTEM FEATURES        -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">System Features</span>
+      </div>
+      <div class="cs-content">
+        <p>Designed supporting features including subscription management, system alerts, user profiles, and a contact flow — ensuring the platform covers the full operational lifecycle of managing a solar installation.</p>
+      </div>
+    </section>
+    <div class="cs-full-img">
+      <img src="images/solar-features.svg" alt="Solar — System Features" />
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CONCLUSION             -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--conclusion">
+      <div class="cs-label">
+        <span class="section-tag">Conclusion</span>
+      </div>
+      <div class="cs-content">
+        <p>This project pushed me to solve complex data-density challenges while keeping the experience clean and usable. Designing for scale — across fleet sizes, time periods, and user types — strengthened my ability to build flexible, systematic design solutions that hold up under real-world complexity.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- MORE WORKS             -->
+    <!-- ===================== -->
+    <section class="cs-more-works">
+      <div class="cs-more-works-header">
+        <h2 class="cs-more-works-title">More works</h2>
+      </div>
+      <a href="findings.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">01</span>
+        <span class="cs-more-works-name">Findings Platform</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== -->
+  <!-- REACH OUT MODAL        -->
+  <!-- ===================== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2 class="modal-title">Reach out</h2>
+      <p class="modal-subtitle">I'd love to hear from you. I'll get back to you as soon as possible.</p>
+      <form id="contactForm" action="https://formspree.io/f/xkoqwznd" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <p>Thanks for reaching out! I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+      }
+    });
+  </script>
+
+</body>
+</html>
