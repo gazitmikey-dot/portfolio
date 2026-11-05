@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit Agent — Michal Gazit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+  <!-- Page-specific styles that extend the portfolio design system -->
+  <style>
+
+    /* ----------------------------------------------------------
+       LABELED IMAGE PLACEHOLDERS
+       The .cs-img-placeholder class already exists in style.css
+       but doesn't have centered content. We add that here.
+    ---------------------------------------------------------- */
+    .cs-img-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Small uppercase eyebrow — "Image placeholder" */
+    .cs-placeholder-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #C4C4C4;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Longer description of what image will go here */
+    .cs-placeholder-desc {
+      font-size: 15px;
+      color: #C4C4C4;
+      text-align: center;
+      max-width: 440px;
+      line-height: 1.6;
+    }
+
+
+    /* ----------------------------------------------------------
+       UX DECISION CALLOUT
+       Highlights key design decisions inline in the text.
+       Purple left border signals AI / decision content.
+    ---------------------------------------------------------- */
+    .cs-insight {
+      background-color: #F8F6FF;
+      border-left: 3px solid #7B5BFF;
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #333333;
+      margin-top: 24px;
+    }
+
+    /* Small caps "Decision" label at the top */
+    .cs-insight strong {
+      color: #7B5BFF;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+
+    /* ----------------------------------------------------------
+       OPEN QUESTIONS TABLE
+       A clean grid for the unresolved questions section.
+    ---------------------------------------------------------- */
+    .cs-questions-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .cs-questions-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid #EBEBEB;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333333;
+    }
+
+    .cs-questions-list li:last-child {
+      border-bottom: none;
+    }
+
+    .cs-q-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: #C4C4C4;
+      flex-shrink: 0;
+      padding-top: 2px;
+      width: 24px;
+    }
+
+
+    /* ----------------------------------------------------------
+       DECISION TABLE — comparison rows
+       Used to show trade-offs between two or more options.
+    ---------------------------------------------------------- */
+    .cs-option-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .cs-option-card {
+      background-color: #F7F7F7;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .cs-option-card h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    /* The chosen option gets a subtle highlight */
+    .cs-option-card.chosen {
+      background-color: #F8F6FF;
+      border: 1.5px solid #E2DCFF;
+    }
+
+    .cs-option-card.chosen h5 {
+      color: #7B5BFF;
+    }
+
+    .cs-option-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #444444;
+      margin: 0;
+    }
+
+    /* Mobile: stack options vertically */
+    @media (max-width: 600px) {
+      .cs-option-pair {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ----------------------------------------------------------
+       THREE-OPTION ROW
+       Same cards as .cs-option-pair, but three across.
+       Used for the three prototype directions.
+    ---------------------------------------------------------- */
+    .cs-option-trio {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* Mobile: stack the three cards vertically */
+    @media (max-width: 800px) {
+      .cs-option-trio {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Michal Gazit</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-page-link">Projects</a>
+      <a href="about.html" class="nav-page-link">About</a>
+      <button class="hire-btn" onclick="openModal()">Reach out</button>
+      <button class="nav-hamburger" id="navHamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="index.html">Projects</a>
+    <a href="about.html">About</a>
+  </div>
+
+  <main class="cs-container">
+
+    <!-- TITLE -->
+    <section class="cs-hero">
+      <h1 class="cs-title">Audit<br>Agent</h1>
+    </section>
+
+    <!-- INTRO -->
+    <p class="cs-intro">When a vendor submits a security assessment, someone on the customer side has to read it — often more than two hundred controls, answer by answer, deciding where the real gaps are. The Audit Agent reads the assessment first and proposes what it found: draft findings, notes, questions it would ask the vendor, and a recommended disposition. Designing it wasn't mainly about what the agent says. It was about what it is allowed to do, where its judgment sits next to a record that has to stay true, and how a person stays the one who decides — without having to approve two hundred things they never needed to read.</p>
+
+    <!-- METADATA ROW -->
+    <div class="cs-meta-row">
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Category</h3>
+        <p>Agentic UX</p>
+        <p>Interaction design</p>
+        <p>UX research</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Product</h3>
+        <p>Findings Platform</p>
+        <p>Vendor management — assessment review</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Tools</h3>
+        <p><strong>Figma</strong> for design &amp; the spec board</p>
+        <p><strong>Claude Code</strong> for a prototype built inside the real product</p>
+      </div>
+    </div>
+
+    <!-- HERO IMAGE PLACEHOLDER -->
+    <div class="cs-hero-image">
+      <div class="cs-img-placeholder" style="height: 560px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The assessment page in audit mode — questionnaire on the left with control marks, the agent's conversation panel on the right</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- MY ROLE & CONTEXT      -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--intro">
+      <div class="cs-label">
+        <span class="section-tag">My Role &amp; Context</span>
+      </div>
+      <div class="cs-content">
+        <p>I led the UX of the Audit Agent from the requirements stage to a full Figma spec for the development team. The starting point was a long requirements document and an MVP candidate written with the product manager — a lot of detail about what the agent should know, and very little about how a person would work with it.</p>
+        <p>Before designing a single screen, I researched how agent products handle permission: what an agent may do on its own, what it must show first, and what it should never do. That research became the rules the rest of the design was measured against.</p>
+        <p>I then explored three directions as working prototypes built with Claude Code — not as a separate mock-up, but inside the real Findings frontend, running on mock data. Every screen used the product's own components, tokens, control numbers and risk model. The final direction was drawn into Figma as a state-by-state spec board, and the prototype was corrected to match it.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- THE PROBLEM            -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">The Problem</span>
+      </div>
+      <div class="cs-content">
+        <p>An assessment is a record. Compliance teams use it to approve or decline vendors, and an auditor may ask about it a year later. Adding an agent to that record raises a question the AI itself can't answer: once the agent has an opinion, how can the user tell what is true from what is only proposed?</p>
+        <p>The agent's most valuable output is also its most uncomfortable one. An assessment can score <strong>78/100 · Pass</strong> while the agent says <strong>"I recommend Decline."</strong> Nothing in the product could say that sentence before. The design had to let the agent disagree clearly — without ever letting its draft quietly become the record.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 1: WHO DECIDES -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 1</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Who decides — permission belongs to the action, not the agent</h2>
+        <p>The first instinct with any agent is an "autonomy" setting: how much do you trust it? My research pointed the other way. The few enterprise products with a real autonomy control all set it per action, and at least one product that shipped a single agent-wide setting later removed it. One agent can rightly act alone on some things and stop to ask on others.</p>
+        <p>So I cut the actions by three questions — <em>does it change anything? can the vendor see it? is it a task or a judgment?</em> — into five levels. Reading, comparing and drafting need no approval at all. Anything the vendor will see needs a person to commit it. Accepting risk or approving a vendor needs a named person and a reason — the agent can prepare that decision, but it can never make it.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          One approval = one decision. If you can't write the single reason a button is being pressed, it isn't one decision — and no button makes it one. That ruled out "Promote everything." Bulk actions exist only when they're scoped by the agent's confidence, and items below the confidence threshold sit apart and stay out of bulk.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: authorization levels -->
+    <div class="cs-hero-image">
+      <div class="cs-img-placeholder" style="height: 420px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The five authorization levels — Just do it · Do it, tell me · Show me first · I commit it · I own this decision</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 2: TRUTH VS PROPOSED -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 2</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">The left side shows what is true. The right side shows what is proposed.</h2>
+        <p>This became the rule the whole screen is built on. The questionnaire on the left is the record. The agent's panel on the right is the proposal. Nothing the agent drafts appears in the questionnaire until a person promotes it. The moment a draft shows up on the left, the user can no longer tell at a glance what is real — and that is the one property this feature can't afford to lose.</p>
+        <p>Before promotion, a control carries only a small mark. On promotion, the finding appears on the left as a real finding, labeled as agent-derived. That moment isn't a side effect — it's how the product teaches the user what the draft layer is. One click, something becomes real, and they watched it cross over.</p>
+
+        <p style="margin-top: 24px;">The mark on each control has four weights:</p>
+        <ul style="font-size: 17px; line-height: 2.1; color: #333; padding-left: 20px; margin-bottom: 24px;">
+          <li><strong>Nothing</strong> — not audited.</li>
+          <li><strong>A quiet grey ✦</strong> — audited, nothing to raise. This is what makes coverage visible: without it, an unmarked control could mean "fine" or "never read."</li>
+          <li><strong>A purple ✦ 2</strong> — audited, two things need you.</li>
+          <li><strong>A green ✦ ✓</strong> — settled. A promoted item leaves a finding behind; a dismissed one leaves nothing. Without this weight, the mark would forget the work happened, and the same argument would reopen next cycle.</li>
+        </ul>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          The mark is not a call to action, and it never lives inside the existing "approve answer" control. "The agent audited this" and "a person approved this" are independent facts — merging them would erase one the moment the other happened. And no one is asked to confirm the two hundred clean controls: asking someone to approve what they deliberately didn't read is theatre.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: control marks + promotion -->
+    <div class="cs-full-img-pair">
+      <div class="cs-img-placeholder" style="height: 400px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The control mark in all four weights — not audited, audited clean, needs you, settled</span>
+      </div>
+      <div class="cs-img-placeholder" style="height: 400px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">A proposal card in the panel — the draft finding shown in full before Promote, with Promote / Dismiss / Edit first / Skip for now</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 3: WHERE THE AUDIT LIVES -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 3</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">An audit belongs to the vendor, not to an assessment</h2>
+        <p>The agent can be started from an assessment, so the obvious home for it was the assessment. But a compliance officer thinks in vendors, and the agent's most useful insights come from reading across a vendor's history — a gap that repeats from last year's cycle, or an answer copied forward without change.</p>
+        <p>So the audit belongs to the vendor, and an assessment is only its scope. Scope defaults to everything the vendor has submitted, including prior cycles, and the user narrows it rather than building it up. A closed prior cycle is a lens, not a subject: it gets no score and no findings of its own. What it contributes arrives as a <em>Repeat gap</em> or <em>Copy-forward</em> tag on a control in the live assessment — so every insight has exactly one home.</p>
+        <p>On the vendors table, a new <strong>Audit</strong> column replaces an older status column and carries the audit's whole life: nothing to audit yet, run audit, running, awaiting review, reviewed, failed. One visual rule makes it readable at a glance: <strong>uppercase means you can click it.</strong></p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          The status badge is a variant of the product's existing risk badge, not a new component — the cheapest possible ask of the development team. And only one tooltip survived: the invite to run an audit, which says the same thing on every row. Every other tooltip was a second copy of the run's facts that would have to be kept true; the panel behind the cell already holds them.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: AUDIT column -->
+    <div class="cs-full-img-pair">
+      <div class="cs-img-placeholder" style="height: 400px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">Vendors table with the Audit column — the states side by side, one row on hover</span>
+      </div>
+      <div class="cs-img-placeholder" style="height: 400px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The pre-run panel opened from the Audit cell — the agent proposes a scope, prior cycle included by default</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 4: THREE DIRECTIONS -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 4</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Panel, inline, or conversation — three working directions</h2>
+        <p>Reviewing an audit means stepping through a queue of issues spread across a long questionnaire. I built three directions as working prototypes, each with a different answer to "who leads the review?"</p>
+
+        <div class="cs-option-trio">
+          <div class="cs-option-card">
+            <h5>1 · Panel-led</h5>
+            <p>A summary drawer plus an "audit mode" bar at the bottom of the page that steps from issue to issue. Precise and complete — but it put the product in charge, with the agent reduced to a list.</p>
+          </div>
+          <div class="cs-option-card">
+            <h5>2 · Inline</h5>
+            <p>Suggestions rendered directly under each control. Set aside — but its argument survived: a draft finding belongs to a control, so it must always point to one, never float in a transcript.</p>
+          </div>
+          <div class="cs-option-card chosen">
+            <h5>3 · Conversation-first ✓</h5>
+            <p>The agent's conversation leads the review: it presents each issue, the user decides in place, and the questionnaire follows along. Chosen after reviewing the first direction with the product manager.</p>
+          </div>
+        </div>
+
+        <p style="margin-top: 24px;">Whichever direction led, the queue followed the same rules, and these carried into the final design:</p>
+        <ul style="font-size: 17px; line-height: 2.1; color: #333; padding-left: 20px; margin-bottom: 24px;">
+          <li><strong>The queue is a fixed set, not a shrinking to-do list.</strong> An earlier version removed decided items, so the count changed while the user worked. A position that renumbers under you is not a position.</li>
+          <li><strong>Position and progress are different numbers</strong> — "3 of 11" is where you are; "3 of 11 decided" is how far you've got.</li>
+          <li><strong>Ordered by risk, using the product's own risk model.</strong> Ties keep document order, the only tie-break a reader can predict.</li>
+          <li><strong>Opening a control outside the queue is a state, not an error.</strong> The queue remembers your place. Silently changing the user's filter because they clicked something makes a tool feel unpredictable.</li>
+        </ul>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          You must always be able to see what you're asking about. The conversation sits in the same panel as the content, and a pinned line above the input names the subject — "About 1.03…" — following the user as they move. A side-by-side chat was rejected: it would leave too little of the questionnaire on screen, and in review the questionnaire is the thing you must see.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: the three directions -->
+    <div class="cs-full-img-pair">
+      <div class="cs-img-placeholder" style="height: 420px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">Direction 1 — summary drawer and the purple "audit mode" bar stepping between controls</span>
+      </div>
+      <div class="cs-img-placeholder" style="height: 420px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">Direction 3 — the conversation presenting an issue, with the matching control highlighted in the questionnaire</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 5: CLOSING AN AUDIT -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 5</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Ending an audit honestly</h2>
+        <p>Should an audit be closable while drafts are still undecided, or while the vendor hasn't answered the agent's questions? Blocking it sounds safe. But an audit that can't close until a vendor replies is held hostage by someone outside the organization.</p>
+        <p>So closing is always available — and the cost moves into the words instead. Every offer to close names its price: <em>"Close the audit — 3 unanswered."</em> The report records what was left undecided, because an audit that hides what it didn't cover is worse than no audit. The drafts stay visible on the assessment: closing ends the audit, not the work.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          The confirm button uses the product's theme color, not red. Closing is irreversible, not destructive. And leaving is a different action from ending: "Exit audit mode" only changes the page, and is worded so it can't be mistaken for "Close audit" — the action that actually ends the audit and writes the report.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: closing -->
+    <div class="cs-full-img-pair">
+      <div class="cs-img-placeholder" style="height: 380px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The agent offering to close — "Close the audit — 3 unanswered"</span>
+      </div>
+      <div class="cs-img-placeholder" style="height: 380px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">Close confirmation — "Closing creates a report and ends the audit. You can run a new audit any time."</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- PROTOTYPING IN THE REAL PRODUCT -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Process</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Prototyping inside the real product</h2>
+        <p>My first prototype was a standalone HTML page. It looked close to the real app — but close isn't the same, and reviewing a copy instead of the product defeats the point. So I moved the prototype into the actual frontend codebase, running on mock data with no backend.</p>
+        <p>Working in the real code changed the design, not just its polish. Control numbers came from the product instead of invented references. Risk came from the product's own impact × probability model — which revealed that the agent must commit to both numbers, or "Promote" stops being one click and becomes a form. Purple became the agent's signature on surfaces, while blue stayed the color of actions. The prototype even surfaced a bug in an existing deep-link feature, which I passed to the development team.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          The spec shows only what the prototype renders. When I turned the prototype into a Figma spec board, I removed every state that had been designed but wasn't actually reachable. A state in the spec that the product doesn't produce becomes work someone builds — or an argument about what was agreed.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: Figma spec board -->
+    <div class="cs-hero-image">
+      <div class="cs-img-placeholder" style="height: 480px;">
+        <span class="cs-placeholder-label">Image placeholder</span>
+        <span class="cs-placeholder-desc">The Figma spec board — the panel's states in run order, from pre-run to closed</span>
+      </div>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- OPEN QUESTIONS          -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Still Open</span>
+      </div>
+      <div class="cs-content">
+        <ul class="cs-questions-list">
+          <li><span class="cs-q-num">01</span><span><strong>Push or overlay?</strong> The panel now pushes the page instead of covering it. It keeps everything visible, but at smaller screens the questionnaire gets tight.</span></li>
+          <li><span class="cs-q-num">02</span><span><strong>Is Promote blue or purple?</strong> Blue is the action color — but promoting is <em>the</em> agent action, and could wear the agent's color.</span></li>
+          <li><span class="cs-q-num">03</span><span><strong>What happens when the vendor replies after closing?</strong> Today, nothing — a closed record never changes. A "stale" signal would say "something moved under this" without acting on it; it was deferred from the first release.</span></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- CONCLUSION             -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--conclusion">
+      <div class="cs-label">
+        <span class="section-tag">Conclusion</span>
+      </div>
+      <div class="cs-content">
+        <p>Most of the hard decisions on this project weren't about what the agent knows. They were about trust: what it may do alone, where its opinion sits, and how a person stays the one who decides.</p>
+        <p>One rule answered most of them — the left side shows what is true, the right side shows what is proposed. Permission by action, the mark on each control, the fixed queue, closing that names its price: each follows from keeping that line clear.</p>
+        <p><strong>An agent that's allowed to disagree is only useful if you can always tell its opinion from the record.</strong></p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- MORE WORKS             -->
+    <!-- ===================== -->
+    <section class="cs-more-works">
+      <div class="cs-more-works-header">
+        <h2 class="cs-more-works-title">More works</h2>
+      </div>
+      <a href="findings.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">01</span>
+        <span class="cs-more-works-name">Findings Platform</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+      <a href="ai-filter.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">02</span>
+        <span class="cs-more-works-name">AI Natural Language Filter</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+      <a href="solar.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">03</span>
+        <span class="cs-more-works-name">Solar Analytics App</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== -->
+  <!-- REACH OUT MODAL        -->
+  <!-- ===================== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2 class="modal-title">Reach out</h2>
+      <p class="modal-subtitle">I'd love to hear from you. I'll get back to you as soon as possible.</p>
+      <form id="contactForm" action="https://formspree.io/f/xkoqwznd" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <p>Thanks for reaching out! I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDropdown').classList.toggle('active');
+    }
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('navDropdown');
+      const hamburger = document.getElementById('navHamburger');
+      if (dropdown && !dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    GLightbox({ selector: '.glightbox' });
+  </script>
+
+</body>
+</html>

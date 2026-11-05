@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Natural Language Filter — Michal Gazit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+  <!-- Page-specific styles that extend the portfolio design system -->
+  <style>
+
+    /* ----------------------------------------------------------
+       LABELED IMAGE PLACEHOLDERS
+       The .cs-img-placeholder class already exists in style.css
+       but doesn't have centered content. We add that here.
+    ---------------------------------------------------------- */
+    .cs-img-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Small uppercase eyebrow — "Image placeholder" */
+    .cs-placeholder-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #C4C4C4;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Hero video — same look as the hero images on the other case studies
+       (full width, natural height, rounded corners) */
+    .cs-hero-image video {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Longer description of what image will go here */
+    .cs-placeholder-desc {
+      font-size: 15px;
+      color: #C4C4C4;
+      text-align: center;
+      max-width: 440px;
+      line-height: 1.6;
+    }
+
+
+    /* ----------------------------------------------------------
+       UX DECISION CALLOUT
+       Highlights key design decisions inline in the text.
+       Purple left border signals AI / decision content.
+    ---------------------------------------------------------- */
+    .cs-insight {
+      background-color: #F8F6FF;
+      border-left: 3px solid #7B5BFF;
+      border-radius: 0 10px 10px 0;
+      padding: 20px 24px;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #333333;
+      margin-top: 24px;
+    }
+
+    /* Small caps "Decision" label at the top */
+    .cs-insight strong {
+      color: #7B5BFF;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+
+    /* ----------------------------------------------------------
+       OPEN QUESTIONS TABLE
+       A clean grid for the unresolved questions section.
+    ---------------------------------------------------------- */
+    .cs-questions-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .cs-questions-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid #EBEBEB;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333333;
+    }
+
+    .cs-questions-list li:last-child {
+      border-bottom: none;
+    }
+
+    .cs-q-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: #C4C4C4;
+      flex-shrink: 0;
+      padding-top: 2px;
+      width: 24px;
+    }
+
+
+    /* ----------------------------------------------------------
+       DECISION TABLE — comparison rows
+       Used to show trade-offs between two or more options.
+    ---------------------------------------------------------- */
+    .cs-option-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .cs-option-card {
+      background-color: #F7F7F7;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .cs-option-card h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    /* The chosen option gets a subtle highlight */
+    .cs-option-card.chosen {
+      background-color: #F8F6FF;
+      border: 1.5px solid #E2DCFF;
+    }
+
+    .cs-option-card.chosen h5 {
+      color: #7B5BFF;
+    }
+
+    .cs-option-card p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #444444;
+      margin: 0;
+    }
+
+    /* Mobile: stack options vertically */
+    @media (max-width: 600px) {
+      .cs-option-pair {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Michal Gazit</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-page-link">Projects</a>
+      <a href="about.html" class="nav-page-link">About</a>
+      <button class="hire-btn" onclick="openModal()">Reach out</button>
+      <button class="nav-hamburger" id="navHamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-dropdown" id="navDropdown">
+    <a href="index.html">Projects</a>
+    <a href="about.html">About</a>
+  </div>
+
+  <main class="cs-container">
+
+    <!-- TITLE -->
+    <section class="cs-hero">
+      <h1 class="cs-title">AI Natural<br>Language Filter</h1>
+    </section>
+
+    <!-- INTRO -->
+    <p class="cs-intro">Filtering the vendors table is one of the most frequent workflows on the Findings platform. Compliance officers managing dozens to hundreds of third-party vendors need to quickly surface specific subsets — vendors with a certain risk level, in a particular review stage, or tied to a specific framework. The AI filter lets users describe what they want in plain language instead of building structured query rows. But adding a new interaction model alongside an existing one raises a set of UX questions that need deliberate answers: can the two modes coexist? What does switching between them mean? What gets lost when the user walks away?</p>
+
+    <!-- METADATA ROW -->
+    <div class="cs-meta-row">
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Category</h3>
+        <p>Feature design</p>
+        <p>UX research</p>
+        <p>Interaction design</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Product</h3>
+        <p>Findings Platform</p>
+        <p>Vendors list — filter system</p>
+      </div>
+      <div class="cs-meta-col">
+        <h3 class="meta-label">Tools</h3>
+        <p><strong>Figma</strong> for design &amp; prototyping</p>
+        <p><strong>Claude Code</strong> for interactive prototype</p>
+      </div>
+    </div>
+
+    <!-- HERO VIDEO — screen recording of the full AI filter flow -->
+    <!-- autoplay + muted + loop + playsinline = plays silently on repeat, like a GIF.
+         Browsers only allow autoplay when the video is muted.
+         playsinline stops iPhones from jumping to fullscreen. -->
+    <div class="cs-hero-image">
+      <video src="vedio/cursorful-video-1793630963933.mp4" autoplay muted loop playsinline
+             aria-label="Screen recording of the AI filter flow: filter button, router popover, AI chat, applied filter">
+      </video>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- MY ROLE & CONTEXT      -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--intro">
+      <div class="cs-label">
+        <span class="section-tag">My Role &amp; Context</span>
+      </div>
+      <div class="cs-content">
+        <p>I led the UX for this feature end-to-end — defining the interaction model, designing all states and edge cases, and delivering a full Figma handoff to the development team. I also built an interactive HTML prototype to validate the experience before engineering began.</p>
+        <p>When I joined the project, a working prototype already existed alongside a markdown technical requirements file — both built by the developer. I took those as my starting point, using Claude Code to explore possible directions and Figma for the pixel-perfect UI design. It wasn't a blank slate — but having a starting point isn't the same as having the right design. The UX decisions made along the way took the feature somewhere that first prototype never reached.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- THE PROBLEM            -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">The Problem</span>
+      </div>
+      <div class="cs-content">
+        <p>The challenge wasn't designing an AI filter — it was adding one to a system that already existed. The platform had one filter button, one apply action, one active filter state. Introducing AI meant adding a completely different interaction paradigm into a surface compliance teams use every day.</p>
+        <p>The risk was fragmentation: two filter buttons, two apply mechanisms, two separate "filter is active" states. Users would need to mentally track two parallel systems for what is ultimately one action — narrowing down a table. Getting this wrong would make the feature feel like two disconnected tools bolted together rather than one coherent system.</p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 1: THE "OR" DECISION + ARCHITECTURE -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 1</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">The "or" decision — and the architecture it created</h2>
+        <p>The backend technically can translate a natural language prompt into existing system filter fields. This raised the idea of showing the AI result and the equivalent standard filter side by side — "here's what I understood, here's how it looks in standard mode." The idea was tempting because it felt transparent.</p>
+        <p>But it was rejected. AI can produce filters that have no equivalent in the standard field system. The moment some conditions are editable in standard mode and others aren't, the interface becomes unpredictable. The only clean solution: a hard "or" — one mode at a time, always. Because only one mode can be active, the product keeps one filter button, one apply action, one active state. No fragmentation.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          The "or" is communicated upfront in the router popover with hint text: <em>"Choosing one will clear the other."</em>
+        </div>
+
+        <p style="margin-top: 24px;">The "or" directly shaped the architecture. Two separate modes need two dedicated spaces — a single combined panel would imply they're interchangeable. The solution: three popovers. A <strong>router</strong> that opens first and presents the choice; an <strong>AI chat popover</strong> for conversational filter-building; and a <strong>standard filter popover</strong> for structured rows. One entry point, two dedicated spaces behind it.</p>
+      </div>
+    </section>
+
+    <!-- Image placeholder: router + the two dedicated popovers -->
+    <div class="cs-full-img-pair">
+      <!-- Router popover image. Wrapped in a link with class "glightbox" so it zooms on click.
+           height:auto + object-fit:contain show the whole image without cropping
+           (the shared style uses "cover", which would cut off the edges of this wide image). -->
+      <a href="images/nl%20filter/filter%201%20step%20pop%20over.png" class="glightbox">
+        <img src="images/nl%20filter/filter%201%20step%20pop%20over.png"
+             alt="Router popover — Filter with AI on top, an 'or' divider, Standard filters below"
+             style="height: auto; object-fit: contain;" />
+      </a>
+      <!-- AI chat popover (top) + Standard filter popover (bottom). Same zoom + no-crop setup as the image beside it. -->
+      <a href="images/nl%20filter/nl%20v%20standert%20filter.png" class="glightbox">
+        <img src="images/nl%20filter/nl%20v%20standert%20filter.png"
+             alt="AI chat popover above, Standard filter popover below, separated by 'or' — each mode has its own space"
+             style="height: auto; object-fit: contain;" />
+      </a>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 2: POPOVER VS DRAWER -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 2</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Why a popover, not a drawer</h2>
+        <p>Once the decision was made to build the AI chat as its own dedicated space, the natural instinct was to use a drawer — the sliding side panel pattern that's become the standard for AI chat interfaces. Cursor, GitHub Copilot, Claude Code — they all use a drawer. It's what users associate with "chat with AI."</p>
+        <p>A drawer was designed and reviewed. It worked. The height was generous, the conversation had room to breathe, and the familiar pattern would reduce the learning curve. But it was still rejected.</p>
+
+        <div class="cs-option-pair">
+          <div class="cs-option-card">
+            <h5>Drawer</h5>
+            <p>Slides in from the side. Persists across the page while open. Suggests a persistent assistant that can help you with anything — navigate to other sections, answer questions, take action across the product.</p>
+          </div>
+          <div class="cs-option-card chosen">
+            <h5>Popover ✓</h5>
+            <p>Anchored to the filter button. Contained and contextual. Disappears when done. Suggests a focused tool that does one thing: helps you build a filter for this table, right now.</p>
+          </div>
+        </div>
+
+        <div class="cs-insight" style="margin-top: 24px;">
+          <strong>Decision</strong>
+          The component needs to communicate its scope before the user reads a single word. A drawer implies an agent. This is a filter tool.
+        </div>
+      </div>
+    </section>
+
+    <!-- Image placeholder: popover vs drawer comparison -->
+    <div class="cs-full-img-pair">
+      <!-- LEFT: the option NOT chosen — AI chat as a drawer.
+           Note: this file name has TWO spaces before the dash, so it's written %20%20 -->
+      <a href="images/nl%20filter/filter%20withe%20AI%20%20-%20drawer.png" class="glightbox">
+        <img src="images/nl%20filter/filter%20withe%20AI%20%20-%20drawer.png"
+             alt="AI chat as a drawer — a side panel running the full page height"
+             style="height: auto; object-fit: contain;" />
+      </a>
+      <!-- RIGHT: the chosen option — AI chat as a popover anchored to the Filter button -->
+      <a href="images/nl%20filter/filter%20withe%20AI%20-%20pop%20over.png" class="glightbox">
+        <img src="images/nl%20filter/filter%20withe%20AI%20-%20pop%20over.png"
+             alt="AI chat as a popover — anchored to the Filter button, scoped to the filter action"
+             style="height: auto; object-fit: contain;" />
+      </a>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 3: GENERATIVE UI -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 3</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Generative UI — the chat isn't just text</h2>
+        <p>A purely text-based chat requires the user to type every answer. For a clarifying question like "by critical findings, do you mean: only Critical risk level, or Critical and Show Stopper?" — making the user type one of those options back is unnecessary friction and easy to get wrong.</p>
+        <p>The decision was to extend the scope of the feature to include generative UI: when the AI asks a clarifying question, it renders the options as clickable chips directly in the chat. The user can read the question, scan the options, and click the one they want — no typing required. The AI receives the selection and continues the conversation exactly as if the user had typed it.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          Clickable option chips make the conversation significantly easier to navigate — especially for compliance officers who may be asking complex filter queries with multiple clarification steps. The chips also make the AI's questions easier to read: numbered, visually distinct, and scannable rather than buried in a paragraph of text.
+        </div>
+
+        <p style="margin-top: 24px;">Two rules govern how the chips behave:</p>
+
+        <ul style="font-size: 17px; line-height: 2.1; color: #333; padding-left: 20px; margin-bottom: 24px;">
+          <li><strong>Chips are one-time only.</strong> Once the user selects an option, all chips in that group become inactive — visually they remain as a record of what was answered, but they can no longer be clicked. This prevents mid-flow changes that would create an inconsistent or contradictory filter. The conversation moves forward; it doesn't loop back.</li>
+          <li><strong>The Apply Filter button is progressive.</strong> It only appears once the AI has finished clarifying and presents its summary — the "Here's what I understood" step with the filter pills. Not at the start, not between clarifying questions. The button appearing is itself a signal: the AI believes it has understood the request and is ready to run it. The user still has the final say before anything changes on the table.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- GENERATIVE UI VIDEO — one recording replaces the two image placeholders:
+         clarifying question with clickable chips → filter pills → Apply Filter.
+         Reuses the hero video setup (.cs-hero-image): full width, rounded corners,
+         silent autoplay on loop. -->
+    <div class="cs-hero-image">
+      <video src="vedio/cursorful-video-1793884923128.mp4" autoplay muted loop playsinline
+             aria-label="Screen recording of generative UI in the AI chat: clarifying question with clickable chips, then filter pills to confirm and apply">
+      </video>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CHALLENGE 4: APPLIED STATE, HISTORY & PERSISTENCE -->
+    <!-- ===================== -->
+    <section class="cs-section">
+      <div class="cs-label">
+        <span class="section-tag">Challenge 4</span>
+      </div>
+      <div class="cs-content">
+        <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">After Apply — getting back in and reusing past filters</h2>
+        <p>Once an AI filter is applied, the feature needs to answer two questions: how does the user get back into the conversation to refine or clear it, and how do they reuse a filter they've run before without rebuilding it from scratch?</p>
+
+        <p><strong>Getting back in.</strong> When a filter is active, the filter button in the toolbar shows the AI sparkle icon with a count badge. Clicking it re-opens the AI chat popover — not a fresh state, but the existing conversation, showing the filter that was applied and confirming it's still active. From there the user can type a follow-up to refine the filter, clear it, or switch to standard. The popover is the single entry point — no second place to manage the active filter.</p>
+
+        <p style="margin-top: 16px;"><strong>Recent filters (history).</strong> The history icon in the popover header opens a recent filters list. This is not a chat replay — it shows the applied filter results from past sessions as cards the user can quickly recognize and reapply. Storing full conversations would be technically expensive and not actually useful; what compliance officers need is to recall and rerun a filter, not to re-read the dialogue that built it.</p>
+
+        <div class="cs-insight">
+          <strong>Decision</strong>
+          History stores the filter output only — what conditions were applied — not the conversation that produced it. Each card shows the filter description in plain language so it's scannable at a glance. Selecting one and clicking Apply is a swap: it replaces the current active filter. No merging, no stacking — consistent with the "one mode, one filter" principle throughout the feature.
+        </div>
+
+        <p style="margin-top: 24px;"><strong>Persistence rule.</strong> Closing the AI popover never clears the conversation — only the explicit "New Chat" button does. Clicking outside (backdrop) on the AI popover intentionally does nothing, because a multi-turn conversation is deliberate work that shouldn't be lost by an accidental click. This is the one place in the feature where the popover behaves differently from the router and standard filter popovers, which do close on backdrop click.</p>
+      </div>
+    </section>
+
+    <!-- APPLIED STATE VIDEO — replaces the two image placeholders (history + applied state).
+         Same full-width, silent, looping setup as the other videos on this page. -->
+    <div class="cs-hero-image">
+      <video src="vedio/cursorful-video-1793884468112.mp4" autoplay muted loop playsinline
+             aria-label="Screen recording of the applied state: popover re-opened from the active filter button, showing filter pills, refine input and Clear Filter">
+      </video>
+    </div>
+
+
+    <!-- ===================== -->
+    <!-- CONCLUSION             -->
+    <!-- ===================== -->
+    <section class="cs-section cs-section--conclusion">
+      <div class="cs-label">
+        <span class="section-tag">Conclusion</span>
+      </div>
+      <div class="cs-content">
+        <p>The hardest decisions on this project weren't about the AI itself — they were about integration. How do you add a completely different interaction paradigm to a system that already exists, without fragmenting the UI or confusing the people who use it every day?</p>
+        <p>The "or" decision answered that. One mode at a time, one filter button, one apply action. Everything else — the three-popover architecture, the popover-not-drawer choice, the generative UI chips, the history model — followed from that foundation.</p>
+        <p>Working through these decisions led to a result that looked almost nothing like the first prototype. The "or" architecture, the three-popover structure, the popover-not-drawer choice, the generative UI chips, the history model — none of that came from the AI-coded version. It came from thinking through the actual user problems. <strong>The AI-coded prototype solved the feature. The UX process solved the experience.</strong></p>
+      </div>
+    </section>
+
+
+    <!-- ===================== -->
+    <!-- MORE WORKS             -->
+    <!-- ===================== -->
+    <section class="cs-more-works">
+      <div class="cs-more-works-header">
+        <h2 class="cs-more-works-title">More works</h2>
+      </div>
+      <a href="findings.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">01</span>
+        <span class="cs-more-works-name">Findings Platform</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+      <a href="solar.html" class="cs-more-works-item">
+        <span class="cs-more-works-num">02</span>
+        <span class="cs-more-works-name">Solar Analytics App</span>
+        <span class="cs-more-works-link">View case study ↗</span>
+      </a>
+    </section>
+
+  </main>
+
+
+  <!-- ===================== -->
+  <!-- REACH OUT MODAL        -->
+  <!-- ===================== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h2 class="modal-title">Reach out</h2>
+      <p class="modal-subtitle">I'd love to hear from you. I'll get back to you as soon as possible.</p>
+      <form id="contactForm" action="https://formspree.io/f/xkoqwznd" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <p>Thanks for reaching out! I'll be in touch soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navDropdown').classList.toggle('active');
+    }
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('navDropdown');
+      const hamburger = document.getElementById('navHamburger');
+      if (dropdown && !dropdown.contains(e.target) && !hamburger.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+        }
+      } catch (error) {
+        alert('Something went wrong. Please try emailing me directly at gazit.mikey@gmail.com');
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    GLightbox({ selector: '.glightbox' });
+  </script>
+
+</body>
+</html>
