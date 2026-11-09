@@ -208,7 +208,7 @@
       <div class="cs-meta-col">
         <h3 class="meta-label">Product</h3>
         <p>Findings Platform</p>
-        <p>Vendors list — filter system</p>
+        <p>Platform-wide filter system</p>
       </div>
       <div class="cs-meta-col">
         <h3 class="meta-label">Tools</h3>
@@ -236,8 +236,9 @@
         <span class="section-tag">My Role &amp; Context</span>
       </div>
       <div class="cs-content">
-        <p>I led the UX for this feature end-to-end — defining the interaction model, designing all states and edge cases, and delivering a full Figma handoff to the development team. I also built an interactive HTML prototype to validate the experience before engineering began.</p>
-        <p>When I joined the project, a working prototype already existed alongside a markdown technical requirements file — both built by the developer. I took those as my starting point, using Claude Code to explore possible directions and Figma for the pixel-perfect UI design. It wasn't a blank slate — but having a starting point isn't the same as having the right design. The UX decisions made along the way took the feature somewhere that first prototype never reached.</p>
+        <!-- Fixed: no longer claims my prototype came "before engineering began" — the backend developer built a working version first -->
+        <p>I led the UX for this feature end-to-end — defining the interaction model, designing all states and edge cases, and delivering a full Figma handoff to the development team.</p>
+        <p>Before I was brought in, the backend developer had already built a working version — a functional UI and a markdown technical requirements file. I took it from there: I mapped where it broke down for users, explored directions with Claude Code, built my own interactive prototype to test the experience, and designed the final UI in Figma. Having a starting point isn't the same as having the right design — the UX decisions took the feature somewhere that first version never reached.</p>
       </div>
     </section>
 
@@ -270,7 +271,7 @@
 
         <div class="cs-insight">
           <strong>Decision</strong>
-          The "or" is communicated upfront in the router popover with hint text: <em>"Choosing one will clear the other."</em>
+          The "or" is communicated upfront: the router popover places the two modes on either side of an <em>"or"</em> divider, so the choice is clear before the user starts.
         </div>
 
         <p style="margin-top: 24px;">The "or" directly shaped the architecture. Two separate modes need two dedicated spaces — a single combined panel would imply they're interchangeable. The solution: three popovers. A <strong>router</strong> that opens first and presents the choice; an <strong>AI chat popover</strong> for conversational filter-building; and a <strong>standard filter popover</strong> for structured rows. One entry point, two dedicated spaces behind it.</p>
@@ -305,7 +306,7 @@
       </div>
       <div class="cs-content">
         <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Why a popover, not a drawer</h2>
-        <p>Once the decision was made to build the AI chat as its own dedicated space, the natural instinct was to use a drawer — the sliding side panel pattern that's become the standard for AI chat interfaces. Cursor, GitHub Copilot, Claude Code — they all use a drawer. It's what users associate with "chat with AI."</p>
+        <p>Once the decision was made to build the AI chat as its own dedicated space, the natural instinct was to use a drawer — the sliding side panel pattern that's become the standard for AI chat interfaces. Cursor and GitHub Copilot both put AI chat in a side panel. It's what users associate with "chat with AI."</p>
         <p>A drawer was designed and reviewed. It worked. The height was generous, the conversation had room to breathe, and the familiar pattern would reduce the learning curve. But it was still rejected.</p>
 
         <div class="cs-option-pair">
@@ -353,18 +354,20 @@
       </div>
       <div class="cs-content">
         <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Generative UI — the chat isn't just text</h2>
-        <p>A purely text-based chat requires the user to type every answer. For a clarifying question like "by critical findings, do you mean: only Critical risk level, or Critical and Show Stopper?" — making the user type one of those options back is unnecessary friction and easy to get wrong.</p>
-        <p>The decision was to extend the scope of the feature to include generative UI: when the AI asks a clarifying question, it renders the options as clickable chips directly in the chat. The user can read the question, scan the options, and click the one they want — no typing required. The AI receives the selection and continues the conversation exactly as if the user had typed it.</p>
+        <!-- Rewritten: accurate to how it's built (AI writes the options, the interface makes them clickable)
+             and makes clear this was my push. -->
+        <p>In the original prototype, the chat was text only. When the AI asked a clarifying question — "by critical findings, do you mean only Critical, or Critical and Show Stopper?" — the user had to type the option number or retype the option. Unnecessary friction, and easy to get wrong.</p>
+        <p>I pushed to add generative UI in its simplest form: the AI writes the options for each question, and the interface turns them into clickable chips. One click answers the question. A final "Something else" option keeps free text open when none fit.</p>
 
         <div class="cs-insight">
           <strong>Decision</strong>
-          Clickable option chips make the conversation significantly easier to navigate — especially for compliance officers who may be asking complex filter queries with multiple clarification steps. The chips also make the AI's questions easier to read: numbered, visually distinct, and scannable rather than buried in a paragraph of text.
+          Answering should feel like using a filter, not writing a message. One click instead of typing makes each step quick and easy. And the result uses the same blue chips as the standard filter — so even in a conversation, the user sees a familiar filter they already know how to read.
         </div>
 
         <p style="margin-top: 24px;">Two rules govern how the chips behave:</p>
 
         <ul style="font-size: 17px; line-height: 2.1; color: #333; padding-left: 20px; margin-bottom: 24px;">
-          <li><strong>Chips are one-time only.</strong> Once the user selects an option, all chips in that group become inactive — visually they remain as a record of what was answered, but they can no longer be clicked. This prevents mid-flow changes that would create an inconsistent or contradictory filter. The conversation moves forward; it doesn't loop back.</li>
+          <li><strong>Chips are one-time only.</strong> Once the user selects an option, the other chips in that group become inactive — they stay visible as a record of what was answered, but can no longer be clicked. This prevents mid-flow changes that would create an inconsistent or contradictory filter. The conversation moves forward; it doesn't loop back.</li>
           <li><strong>The Apply Filter button is progressive.</strong> It only appears once the AI has finished clarifying and presents its summary — the "Here's what I understood" step with the filter pills. Not at the start, not between clarifying questions. The button appearing is itself a signal: the AI believes it has understood the request and is ready to run it. The user still has the final say before anything changes on the table.</li>
         </ul>
       </div>
@@ -401,7 +404,7 @@
           History stores the filter output only — what conditions were applied — not the conversation that produced it. Each card shows the filter description in plain language so it's scannable at a glance. Selecting one and clicking Apply is a swap: it replaces the current active filter. No merging, no stacking — consistent with the "one mode, one filter" principle throughout the feature.
         </div>
 
-        <p style="margin-top: 24px;"><strong>Persistence rule.</strong> Closing the AI popover never clears the conversation — only the explicit "New Chat" button does. Clicking outside (backdrop) on the AI popover intentionally does nothing, because a multi-turn conversation is deliberate work that shouldn't be lost by an accidental click. This is the one place in the feature where the popover behaves differently from the router and standard filter popovers, which do close on backdrop click.</p>
+        <p style="margin-top: 24px;"><strong>Persistence rule.</strong> Closing the AI popover never clears the conversation — only the explicit "clear and start a new chat" icon in the popover header does. Clicking outside (backdrop) on the AI popover intentionally does nothing, because a multi-turn conversation is deliberate work that shouldn't be lost by an accidental click. This is the one place in the feature where the popover behaves differently from the router and standard filter popovers, which do close on backdrop click.</p>
       </div>
     </section>
 
@@ -424,7 +427,10 @@
       <div class="cs-content">
         <p>The hardest decisions on this project weren't about the AI itself — they were about integration. How do you add a completely different interaction paradigm to a system that already exists, without fragmenting the UI or confusing the people who use it every day?</p>
         <p>The "or" decision answered that. One mode at a time, one filter button, one apply action. Everything else — the three-popover architecture, the popover-not-drawer choice, the generative UI chips, the history model — followed from that foundation.</p>
-        <p>Working through these decisions led to a result that looked almost nothing like the first prototype. The "or" architecture, the three-popover structure, the popover-not-drawer choice, the generative UI chips, the history model — none of that came from the AI-coded version. It came from thinking through the actual user problems. <strong>The AI-coded prototype solved the feature. The UX process solved the experience.</strong></p>
+        <!-- List of decisions now appears only once (paragraph above), to avoid repeating it -->
+        <p>The final result looks almost nothing like the first prototype. None of these decisions came from the AI-coded version — they came from thinking through the actual user problems. <strong>The AI-coded prototype solved the feature. The UX process solved the experience.</strong></p>
+        <!-- Result from Mixpanel (7-day share of all filter use). Measured from the chart: 53% NL vs 47% standard. -->
+        <p><strong>The result:</strong> within weeks of launch, natural-language filtering became the preferred way to filter — <strong>53% of all filter use</strong>, overtaking the standard filters users had relied on for years.</p>
       </div>
     </section>
 
