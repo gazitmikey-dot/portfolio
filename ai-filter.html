@@ -195,14 +195,15 @@
     </section>
 
     <!-- INTRO -->
-    <p class="cs-intro">Filtering the vendors table is one of the most frequent workflows on the Findings platform. Compliance officers managing dozens to hundreds of third-party vendors need to quickly surface specific subsets — vendors with a certain risk level, in a particular review stage, or tied to a specific framework. The AI filter lets users describe what they want in plain language instead of building structured query rows. But adding a new interaction model alongside an existing one raises a set of UX questions that need deliberate answers: can the two modes coexist? What does switching between them mean? What gets lost when the user walks away?</p>
+    <!-- Intro = overview of the feature only. The problem framing lives in "The Problem" section. -->
+    <p class="cs-intro">Filtering is one of the most frequent workflows on the Findings platform — across the vendors list, dashboards and every other table. Compliance officers managing dozens to hundreds of third-party vendors need to quickly surface specific subsets: a certain risk level, a particular review stage, a specific framework. The AI filter lets them describe what they want in plain language instead of building structured query rows. The vendors list is shown here as an example; the same filter works throughout the system.</p>
 
     <!-- METADATA ROW -->
     <div class="cs-meta-row">
       <div class="cs-meta-col">
         <h3 class="meta-label">Category</h3>
         <p>Feature design</p>
-        <p>UX research</p>
+        <p>Prototyping</p>
         <p>Interaction design</p>
       </div>
       <div class="cs-meta-col">
@@ -267,7 +268,7 @@
       <div class="cs-content">
         <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">The "or" decision — and the architecture it created</h2>
         <p>The backend technically can translate a natural language prompt into existing system filter fields. This raised the idea of showing the AI result and the equivalent standard filter side by side — "here's what I understood, here's how it looks in standard mode." The idea was tempting because it felt transparent.</p>
-        <p>But it was rejected. AI can produce filters that have no equivalent in the standard field system. The moment some conditions are editable in standard mode and others aren't, the interface becomes unpredictable. The only clean solution: a hard "or" — one mode at a time, always. Because only one mode can be active, the product keeps one filter button, one apply action, one active state. No fragmentation.</p>
+        <p>I rejected it. AI can produce filters that have no equivalent in the standard field system. The moment some conditions are editable in standard mode and others aren't, the interface becomes unpredictable. The only clean solution: a hard "or" — one mode at a time, always. Because only one mode can be active, the product keeps one filter button, one apply action, one active state. No fragmentation.</p>
 
         <div class="cs-insight">
           <strong>Decision</strong>
@@ -307,7 +308,7 @@
       <div class="cs-content">
         <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; line-height: 1.3;">Why a popover, not a drawer</h2>
         <p>Once the decision was made to build the AI chat as its own dedicated space, the natural instinct was to use a drawer — the sliding side panel pattern that's become the standard for AI chat interfaces. Cursor and GitHub Copilot both put AI chat in a side panel. It's what users associate with "chat with AI."</p>
-        <p>A drawer was designed and reviewed. It worked. The height was generous, the conversation had room to breathe, and the familiar pattern would reduce the learning curve. But it was still rejected.</p>
+        <p>I designed and reviewed a drawer. It worked. The height was generous, the conversation had room to breathe, and the familiar pattern would reduce the learning curve. But I still rejected it.</p>
 
         <div class="cs-option-pair">
           <div class="cs-option-card">
